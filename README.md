@@ -1,2 +1,2 @@
 # Multimanager
- A setting like app that allows you to change your windows theme regardless of activation and change your screen resolution
+Contains system customization options such as a theme manager (works on non-activated windows 10 platforms) and display resolution changer, as well as a task manager and a console.
