@@ -4,7 +4,7 @@
 library
 C#
 .cs
-D:\Documents (New)\Visual Studio\kOFR Repo\Multimanager\obj\Debug\
+D:\Documents (New)\Visual Studio\kOFR Repo\C# Projects\Multimanager\obj\Debug\
 Multimanager
 none
 false
@@ -12,9 +12,9 @@ DEBUG;TRACE
 
 11-1960332813
 
-141275212287
-211722239097
+13-1969581640
+21-958256064
 AlertWindow.xaml;CMessageBox.xaml;Console.xaml;Home.xaml;MainWindow.xaml;Styles.xaml;SystemPages\Display.xaml;SystemPages\SystemPage.xaml;SystemPages\Themes.xaml;TaskManager\Processes.xaml;TaskManager\TaskManager.xaml;
 
-True
+False
 
