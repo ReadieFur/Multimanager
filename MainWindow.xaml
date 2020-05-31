@@ -1,0 +1,179 @@
+﻿<Window x:Class="Multimanager.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Multimanager"
+        mc:Ignorable="d"
+        ResizeMode="CanResizeWithGrip" AllowsTransparency="True" WindowStyle="None"
+        d:DesignHeight="450" d:DesignWidth="800"
+        Title="Multimanager" Loaded="Page_Loaded" Icon="Resources/Multimanager.jpg">
+    <Window.Resources>
+        <Style x:Key="FocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="2" SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="Button.Static.Background" Color="#FFDDDDDD"/>
+        <SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070"/>
+        <Style x:Key="ButtonStyle1" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="#FFFF0000"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="#FFC80000"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ButtonStyle2" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="#33FFFFFF"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="#1AFFFFFF"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ButtonStyle3" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="#33FFFFFF"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="#1AFFFFFF"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid x:Name="background" Background="White">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="70"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid x:Name="windowHeader" Grid.ColumnSpan="2" MouseDown="windowHeader_MouseDown" Background="White">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="70"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Path x:Name="horizontalLine" Data="M140.24664,22.197309 L561.36302,22.197309" Height="1" Stretch="Fill" StrokeThickness="10" VerticalAlignment="Bottom" Grid.ColumnSpan="2" Margin="65,0,0,0">
+                    <Path.Stroke>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <LinearGradientBrush.RelativeTransform>
+                                <TransformGroup>
+                                    <ScaleTransform CenterY="0.5" CenterX="0.5"/>
+                                    <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                                    <RotateTransform Angle="-90" CenterY="0.5" CenterX="0.5"/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </LinearGradientBrush.RelativeTransform>
+                            <GradientStop Color="#FF3399FF" Offset="0.1"/>
+                            <GradientStop Color="White" Offset="0.9"/>
+                        </LinearGradientBrush>
+                    </Path.Stroke>
+                </Path>
+                <Button x:Name="closebtn" FontFamily="Segoe MDL2 Assets" Content="&#xE8BB;" HorizontalAlignment="Right" VerticalAlignment="Top" Width="50" Height="50" BorderBrush="{x:Null}" Background="White" FontSize="14" Click="closebtn_Click" Style="{DynamicResource ButtonStyle1}" Grid.Column="1"/>
+                <Button x:Name="resizebtn" FontFamily="Segoe MDL2 Assets" Content="&#xE922;" HorizontalAlignment="Right" VerticalAlignment="Top" Width="50" Height="50" BorderBrush="{x:Null}" Click="resizebtn_Click" Style="{DynamicResource ButtonStyle2}" Margin="0,-1,50,0" Grid.Column="1" Background="White"/>
+                <Button x:Name="minimisebtn" FontFamily="Segoe MDL2 Assets" Content="&#xE921;" HorizontalAlignment="Right" VerticalAlignment="Top" Width="50" Height="50" BorderBrush="{x:Null}" Click="minimisebtn_Click" Style="{DynamicResource ButtonStyle3}" Margin="0,0,100,0" Grid.Column="1" Background="White"/>
+                <Label x:Name="appTitle" Content="Multimanager" Grid.Column="1" HorizontalAlignment="Left" Margin="0,8.003,0,0" VerticalAlignment="Top" FontSize="18" FontFamily="Century Gothic"/>
+            </Grid>
+            <Grid x:Name="windowContents" Grid.Row="1" Background="White">
+                <Path x:Name="verticalLine" Data="M219.95516,154.3722 L219.95516,303.69955" Stretch="Fill" Width="1" HorizontalAlignment="Right" StrokeThickness="10" Margin="0,-6,0,0">
+                    <Path.Stroke>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FF3399FF" Offset="0.1"/>
+                            <GradientStop Color="White" Offset="0.9"/>
+                        </LinearGradientBrush>
+                    </Path.Stroke>
+                </Path>
+                <WrapPanel Orientation="Vertical" Margin="0,-1,0,0">
+                    <Grid x:Name="homeGrid" Height="51" Width="69" HorizontalAlignment="Left" VerticalAlignment="Top" Background="#33000000" MouseDown="homeGrid_MouseDown">
+                        <Image x:Name="homeImage" HorizontalAlignment="Left" Height="30" VerticalAlignment="Top" Width="30" Margin="20,4,0,0" Source="Resources/HomeBlack.png"/>
+                        <Label x:Name="homeText" Content="Home" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,-3.666" VerticalAlignment="Top" Width="50" Height="53"/>
+                        <Border x:Name="homeBorder" BorderBrush="#FF3399FF" BorderThickness="5,0,0,0" HorizontalAlignment="Left" Height="50" VerticalAlignment="Top" Width="69"/>
+                    </Grid>
+                    <Grid x:Name="processesGrid" HorizontalAlignment="Left" Height="51" Width="69" VerticalAlignment="Top" Background="#00000000" MouseDown="processesGrid_MouseDown">
+                        <Image x:Name="processesImage" HorizontalAlignment="Left" Height="30" VerticalAlignment="Top" Width="30" Margin="20,4,0,0" Source="Resources/ProcessesBlack.png"/>
+                        <Label x:Name="processesText" Content="Processes" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="0,0,0,-3" VerticalAlignment="Top" Width="69" Height="53"/>
+                        <Border x:Name="processesBorder" BorderBrush="#003399FF" BorderThickness="5,0,0,0" HorizontalAlignment="Left" Height="50" VerticalAlignment="Top" Width="60"/>
+                    </Grid>
+                    <Grid x:Name="systemGrid" HorizontalAlignment="Left" Height="51" Width="69" VerticalAlignment="Top" Background="#00000000" MouseDown="systemGrid_MouseDown">
+                        <Image x:Name="systemImage" HorizontalAlignment="Left" Height="30" VerticalAlignment="Top" Width="30" Margin="20,4,0,0" Source="Resources/SystemBlack.png"/>
+                        <Label x:Name="systemText" Content="System" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="0,0,0,-3" VerticalAlignment="Top" Width="69" Height="53"/>
+                        <Border x:Name="systemBorder" BorderBrush="#003399FF" BorderThickness="5,0,0,0" HorizontalAlignment="Left" Height="50" VerticalAlignment="Top" Width="60"/>
+                    </Grid>
+                    <Grid x:Name="consoleGrid" HorizontalAlignment="Left" Height="51" Width="69" VerticalAlignment="Top" Background="#00000000" MouseDown="consoleGrid_MouseDown">
+                        <Image x:Name="consoleImage" HorizontalAlignment="Left" Height="30" VerticalAlignment="Top" Width="30" Margin="20,4,0,0" Source="Resources/ConsoleBlack.png"/>
+                        <Label x:Name="consoleText" Content="Console" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="0,0,0,-3" VerticalAlignment="Top" Width="69" Height="53"/>
+                        <Border x:Name="consoleBorder" BorderBrush="#003399FF" BorderThickness="5,0,0,0" HorizontalAlignment="Left" Height="50" VerticalAlignment="Top" Width="60"/>
+                    </Grid>
+                </WrapPanel>
+            </Grid>
+            <Image x:Name="aIcon" Height="40" Width="40" Margin="0" Source="Resources/Multimanager.jpg"/>
+            <Frame x:Name="windowContent" NavigationUIVisibility="Hidden" Grid.Column="1" Grid.Row="1"/>
+            <Border x:Name="windowBorder" BorderBrush="#FF3399FF" BorderThickness="1" Grid.ColumnSpan="2" Grid.RowSpan="2" Visibility="Hidden"/>
+        </Grid>
+
+    </Grid>
+</Window>
