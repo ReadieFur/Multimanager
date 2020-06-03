@@ -1,0 +1,39 @@
+﻿<Page x:Class="Multimanager.SystemPages.Home"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Multimanager"
+      mc:Ignorable="d" 
+      d:DesignHeight="400" d:DesignWidth="790"
+      Title="Home" Loaded="Page_Loaded">
+
+    <Page.DataContext>
+        <local:XAMLStyles/>
+    </Page.DataContext>
+
+    <Grid>
+        <Grid x:Name="systemPagesNavigation">
+            <WrapPanel x:Name="systemPagesPanel" Orientation="Horizontal" Margin="10,0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Grid x:Name="displayButton" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="200" Margin="20" Background="{Binding backgroundSolid}" MouseDown="displayButton_MouseDown">
+                    <DockPanel LastChildFill="False" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Grid>
+                            <Grid Background="{Binding accentSolid}" Margin="2.25"/>
+                            <Image x:Name="displayImage" Height="50" VerticalAlignment="Center" Width="50" Source="/Multimanager;component/Resources/DisplayWhite.png" HorizontalAlignment="Left" Margin="0"/>
+                        </Grid>
+                        <TextBlock Foreground="{Binding foregroundSolid}" TextWrapping="Wrap" Text="Display" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="18" FontFamily="Century Gothic"/>
+                    </DockPanel>
+                </Grid>
+                <Grid x:Name="personalizationButton" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="200" Margin="20" Background="{Binding backgroundSolid}" MouseDown="personalizationButton_MouseDown">
+                    <DockPanel LastChildFill="False" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Grid>
+                            <Grid Background="{Binding accentSolid}" Margin="2.25"/>
+                            <Image x:Name="personalizationImage" Height="50" VerticalAlignment="Center" Width="50" Source="/Multimanager;component/Resources/PenWhite.png" HorizontalAlignment="Left" Margin="0"/>
+                        </Grid>
+                        <TextBlock Foreground="{Binding foregroundSolid}" TextWrapping="Wrap" Text="Personalization" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="18" FontFamily="Century Gothic"/>
+                    </DockPanel>
+                </Grid>
+            </WrapPanel>
+        </Grid>
+    </Grid>
+</Page>

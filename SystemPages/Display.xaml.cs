@@ -13,15 +13,6 @@ namespace Multimanager.SystemPages
     //https://www.codeproject.com/Articles/6810/Dynamic-Screen-Resolution
     //https://www.tutorialspoint.com/wpf/wpf_data_binding.htm
 
-    public class updateXAMLDataBinding
-    {
-        public string accentColourXAML { get; set; }
-
-        public string buttonColourXAML { get; set; }
-
-        public string textColourXAML { get; set; }
-    }
-
     public partial class Display : Page
     {
         public static int startScreenWidth = Convert.ToInt32(SystemParameters.PrimaryScreenWidth);
@@ -31,11 +22,6 @@ namespace Multimanager.SystemPages
         public static bool firstOpen = true;
         Timer updateComboResolutionsText = new Timer();
 
-        public Display()
-        {
-            InitializeComponent();
-        }
-
         public class DisplayItem
         {
             public string width { get; set; }
@@ -43,15 +29,20 @@ namespace Multimanager.SystemPages
             public string frequency { get; set; }
         }
 
+        public Display()
+        {
+            InitializeComponent();
+        }
+
         public void Page_Loaded(object sender, RoutedEventArgs e)
         {
             firstOpen = true;
 
-            DataContext = new updateXAMLDataBinding { accentColourXAML = Styles.accentColour, buttonColourXAML = Styles.buttonColour, textColourXAML = Styles.textColour };
-            cboResolutions.Background = Styles.theme();
-            cboResolutions.Foreground = Styles.text();
-            cboResolutions.BorderBrush = Styles.button();
-            dResolution.Foreground = Styles.text();
+            Timer checkForChange = new Timer();
+            DataContext = new XAMLStyles { };
+            checkForChange.Interval = 1000;
+            checkForChange.Tick += (se, ea) => { try { if (Styles.themeChanged) { Dispatcher.Invoke(() => { DataContext = new XAMLStyles { }; }); } } catch { } };
+            checkForChange.Start();
 
             DEVMODE vDevMode = new DEVMODE();
             List<string> displayResolutions1 = new List<string>();
@@ -109,8 +100,8 @@ namespace Multimanager.SystemPages
                 cboResolutions.Items.Add(new ComboBoxItem
                 {
                     Content = resolution,
-                    Background = Styles.button(),
-                    Foreground = Styles.text(),
+                    Background = Styles.bc(Styles.border),
+                    Foreground = Styles.bc(Styles.foreground),
                     BorderThickness = new Thickness(0),
                     Style = FindResource("cboItemStyle") as Style,
                     Height = 40,

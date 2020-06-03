@@ -10,6 +10,7 @@ using System.Runtime.InteropServices;
 using HWND = System.IntPtr;
 using System.Linq;
 using System.IO;
+using System.Timers;
 
 namespace Multimanager.SystemPages
 {
@@ -28,9 +29,6 @@ namespace Multimanager.SystemPages
         [DllImport("user32.dll", SetLastError = true)]
         static extern HWND FindWindow(string lpClassName, string lpWindowName);
 
-        public static int themeChangeCountNew = 0;
-        public static int themeChangeCountOld = 0;
-
         public string wallpaper = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Microsoft\\Windows\\Themes\\TranscodedWallpaper"; //@"C:\Windows\Web\4K\Wallpaper\Windows\img0_3840x2160.jpg";
         public string b64image;
 
@@ -42,13 +40,9 @@ namespace Multimanager.SystemPages
         const string WsubKey = @"Software\Microsoft\Windows\CurrentVersion\Explorer\Wallpapers";
         const string WkeyName = userRoot + "\\" + WsubKey;
 
-        internal SystemPage sp = null;
-
-        public Themes(SystemPage stw = null)
+        public Themes()
         {
-            if (stw != null) { sp = stw; }
             InitializeComponent();
-            setThemes();
             try { loadColourPallet(); } catch { }
 
             try { imagepreview.Source = new System.Windows.Media.Imaging.BitmapImage(new Uri(Registry.GetValue(WkeyName, "BackgroundHistoryPath0", string.Empty).ToString())); }
@@ -59,114 +53,26 @@ namespace Multimanager.SystemPages
 
         private void background_Loaded(object sender, RoutedEventArgs e)
         {
-            if (Styles.AppsUseLightTheme == "#FFFFFFFF")
-            {
-                ColourLight.IsChecked = true;
-            }
-            else
-            {
-                ColourDark.IsChecked = true;
-            }
-        }
+            Timer checkForChange = new Timer();
+            DataContext = new XAMLStyles { };
+            checkForChange.Interval = 1000;
+            checkForChange.Elapsed += (se, ea) => { try { if (Styles.themeChanged) { Dispatcher.Invoke(() => { DataContext = new XAMLStyles { }; }); } } catch { } };
+            checkForChange.Start();
 
-        private void reloadThemes(string theme, string accent)
-        {
-            Styles.Set(theme, accent);
-            setThemes();
-            //var mw = Application.Current.MainWindow as MainWindow;
-            sp.mw.setMainWindowThemes();
-            string shade = "#33FFFFFF";
-            if (Styles.AppsUseLightTheme == "#FFFFFFFF")
-            {
-                shade = "#33000000";
-            }
-            Dispatcher.Invoke(() =>
-            {
-                sp.mw.systemGrid.Background = Styles.b(shade);
-                sp.mw.systemBorder.BorderBrush = Styles.b(Styles.accentColour);
-            });
-            themeChangeCountNew += 1;
-        }
-
-        private void setThemes()
-        {
-            ColourTXT.Foreground = Styles.text();
-            ColourLine.Stroke = Styles.text();
-            ColourLight.Foreground = Styles.text();
-            ColourLight.Background = Styles.button();
-            ColourDark.Foreground = Styles.text();
-            ColourDark.Background = Styles.button();
-            AccentTXT.Foreground = Styles.text();
-            AccentLine.Stroke = Styles.text();
-            ThemeAccentTXT.Foreground = Styles.text();
-            ThemeAccentTXT.Background = Styles.button();
-            HexCheckBox.Foreground = Styles.text();
-            HexCheckBox.Background = Styles.button();
-            BackgroundText.Foreground = Styles.text();
-            BackgroundLine.Stroke = Styles.text();
-            ChooseWallpaper.Background = Styles.button();
-            ChooseWallpaper.Foreground = Styles.text();
-            PreviewTXT.Foreground = Styles.text();
-            PreviewLine.Stroke = Styles.button();
-            defaultWallpaper.Foreground = Styles.accent();
-
-            //Preview colours
-            StartMenu.Background = Styles.b("#F2" + Styles.AppsUseLightTheme.Substring(3));
-            StartMenu_Copy1.Background = Styles.text();
-            StartMenu_Copy3.Foreground = Styles.text();
-            StartMenu_Copy19.Background = Styles.text();
-            StartMenu_Copy20.Background = Styles.text();
-            StartMenu_Copy21.Background = Styles.text();
-            StartMenu_Copy22.Background = Styles.text();
-            StartMenu_Copy23.Background = Styles.text();
-            StartMenu_Copy24.Background = Styles.text();
-            StartMenu_Copy25.Background = Styles.text();
-            StartMenu_Copy26.Background = Styles.text();
-            StartMenu_Copy27.Background = Styles.text();
-            StartMenu_Copy28.Background = Styles.theme();
-            StartMenu_Copy30.Background = Styles.text();
-            StartMenu_Copy.Background = Styles.accent();
-            StartMenu_Copy29.Background = Styles.accent();
-            StartMenu_Copy2.Background = Styles.accent();
-            StartMenu_Copy3.Background = Styles.accent();
-            StartMenu_Copy4.Background = Styles.accent();
-            StartMenu_Copy5.Background = Styles.accent();
-            StartMenu_Copy6.Background = Styles.accent();
-            StartMenu_Copy7.Background = Styles.accent();
-            StartMenu_Copy8.Background = Styles.accent();
-            StartMenu_Copy9.Background = Styles.accent();
-            StartMenu_Copy10.Background = Styles.accent();
-            StartMenu_Copy11.Background = Styles.accent();
-            StartMenu_Copy12.Background = Styles.accent();
-            StartMenu_Copy13.Background = Styles.accent();
-            StartMenu_Copy14.Background = Styles.accent();
-            StartMenu_Copy15.Background = Styles.accent();
-            StartMenu_Copy16.Background = Styles.accent();
-            StartMenu_Copy17.Background = Styles.accent();
-            StartMenu_Copy18.Background = Styles.accent();
-            SampleText.Foreground = Styles.text();
+            if (Styles.background == "#FFFFFFFF") { ColourLight.IsChecked = true; }
+            else { ColourDark.IsChecked = true; }
         }
 
         #region Light/Dark Theme
         private void ColourLight_Checked(object sender, RoutedEventArgs e)
         {
-            if (firstPass == false)
-            {
-                Registry.SetValue(LkeyName, "AppsUseLightTheme", 1);
-                reloadThemes("#FFFFFFFF", Styles.accentColour);
-            }
-
+            if (firstPass == false) { Registry.SetValue(LkeyName, "AppsUseLightTheme", 1); }
             firstPass = false;
         }
 
         private void ColourDark_Checked(object sender, RoutedEventArgs e)
         {
-            if (firstPass == false)
-            {
-                Registry.SetValue(LkeyName, "AppsUseLightTheme", 0);
-                reloadThemes("#FF101011", Styles.accentColour);
-            }
-
+            if (firstPass == false) { Registry.SetValue(LkeyName, "AppsUseLightTheme", 0); }
             firstPass = false;
         }
         #endregion
@@ -179,10 +85,7 @@ namespace Multimanager.SystemPages
         {
             var Key = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Accent");
             var Val = Key.GetValue("AccentPalette");
-            if (Val != null)
-            {
-                bin = (byte[])Val;
-            }
+            if (Val != null) { bin = (byte[])Val; }
         }
 
         private void updateColourPallet(string accent)
@@ -303,12 +206,6 @@ namespace Multimanager.SystemPages
                     }
                 }
             }
-
-            //Update app themes
-            reloadThemes(Styles.AppsUseLightTheme, accent);
-
-            //Bring app back to front
-            Dispatcher.Invoke(() => { sp.mw.Activate(); });
         }
 
         byte[] bin;
@@ -449,13 +346,13 @@ namespace Multimanager.SystemPages
 
         private void CustomHEX_Checked(object sender, RoutedEventArgs e)
         {
-            var bc = new BrushConverter();
+            ThemeAccentTXT.Background = null;
             ThemeAccentTXT.IsEnabled = true;
         }
 
         private void CustomHEX_Unchecked(object sender, RoutedEventArgs e)
         {
-            var bc = new BrushConverter();
+            ThemeAccentTXT.Background = Styles.bc(Styles.border);
             ThemeAccentTXT.IsEnabled = false;
         }
 

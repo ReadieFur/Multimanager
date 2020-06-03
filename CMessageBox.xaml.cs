@@ -2,16 +2,11 @@
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Forms;
-using System.Windows.Media;
 using Microsoft.WindowsAPICodePack.Taskbar;
 using System.Windows.Interop;
 
 namespace Multimanager
 {
-    /// <summary>
-    /// Interaction logic for CMessageBox.xaml
-    /// </summary>
-
     public class options
     {
         public enum b
@@ -39,35 +34,21 @@ namespace Multimanager
         int uTime;
         Timer timeOpen = new Timer();
 
-        private void setStyles()
-        {
-            windowTitle.Foreground = Styles.text();
-            titleBar.Background = Styles.accent();
-            windowBorder.BorderBrush = Styles.accent();
-            messageBox.Foreground = Styles.text();
-            messageBox.CaretBrush = Styles.text();
-            background.Background = Styles.theme();
-            btnYes.Background = Styles.button();
-            btnCancel.Background = Styles.button();
-            btnNo.Background = Styles.button();
-            btnOk.Background = Styles.button();
-            btnYes.Foreground = Styles.text();
-            btnCancel.Foreground = Styles.text();
-            btnNo.Foreground = Styles.text();
-            btnOk.Foreground = Styles.text();
-        }
-
         public CMessageBox(string message, string title = "Multimanager alert", options.b buttons = options.b.ok, int time = 0)
         {
             InitializeComponent();
             SourceInitialized += (s, ev) => { TaskbarManager.Instance.SetApplicationIdForSpecificWindow(new WindowInteropHelper(this).Handle, "Multimanager"); };
 
+            Timer checkForChange = new Timer();
+            DataContext = new XAMLStyles { };
+            checkForChange.Interval = 1000;
+            checkForChange.Tick += (se, ea) => { try { if (Styles.themeChanged) { Dispatcher.Invoke(() => { DataContext = new XAMLStyles { }; }); } } catch { } };
+            checkForChange.Start();
+
             try
             {
                 MinHeight = 175;
                 MinWidth = 400;
-
-                setStyles();
 
                 buttonPressed = "";
                 timeR = 0;
