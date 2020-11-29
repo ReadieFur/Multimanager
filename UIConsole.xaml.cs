@@ -18,7 +18,7 @@ namespace Multimanager
 
         private void commandtxt_Loaded(object sender, RoutedEventArgs e)
         {
-            consoletxt.Text = $"Multimanager [Version {FileVersionInfo.GetVersionInfo(Environment.CurrentDirectory + "\\Multimanager.dll").FileVersion}] kOF Group.\nFor help, please type 'HELP'";
+            consoletxt.Text = $"Multimanager kOF Group.\nFor help, please type 'HELP'";
             commandtxt.Focus();
         }
 
